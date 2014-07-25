@@ -4,7 +4,7 @@ Donate link: https://szepe.net/wp-donate/
 Tags: debug, debugging, developer, development, performance, profiler, profiling
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv2
 
 Lists WordPress require() calls mainly for plugin code refactoring
@@ -13,16 +13,18 @@ Lists WordPress require() calls mainly for plugin code refactoring
 
 = Only for development! =
 
-This plugin dumps the colorized filenames after the normal WordPress output, after the closing html tag.
+This plugin dumps the colorized filenames and filesizes after the normal WordPress output, after the closing html tag.
 This generates invalid HTML but gives you an overview of plugins and the current theme.
 
-It lists all files parsed and executed by the PHP engine. It can be used for plugin or theme refactoring.
+This plugin lists all files parsed and executed by the PHP engine.
+It can be used for plugin or theme refactoring.
 
 * files in the plugin directory are BLUE
 * files in the themes directory are ORANGE
 * files in the wp-includes directory are GREEN
 * files in the wp-admin directory are GREY
 * all other files are RED
+* the bar after filename is the file size ( 0.5 kB/px )
 
 Please watch [this WP core bug](https://core.trac.wordpress.org/ticket/28364) to get more information about WordPress entry points.
 
@@ -44,9 +46,13 @@ After finishing the refactor, please deactivate and delete this plugin.
 
 == Screenshots ==
 
-1. This is a screen shot of the dashboard. You can see the filenames after the admin footer.
+1. This is the current screen shot of the plugin's output on the dashboard. The colored bars represent the file sizes.
+1. This is an old screen shot. You can see the filenames after the admin footer.
 
 == Changelog ==
+
+= 1.6 =
+* Added file sizes and total file size
 
 = 1.5 =
 * Added inline styles

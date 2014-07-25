@@ -3,7 +3,7 @@
  * Plugin Name: What's running
  * Plugin URI: http://wordpress.org/plugins/whats-running/
  * Description: Lists WordPress require() calls mainly for plugin code refactoring
- * Version: 1.5
+ * Version: 1.6
  * Author: Viktor Szépe
  * Author URI: http://www.online1.hu/webdesign/
  * License: GNU General Public License (GPL) version 2
@@ -40,9 +40,12 @@ function whats_running() {
     // run on IFRAME_REQUEST
 
     $abslen = strlen(ABSPATH);
+    $total_size = 0;
 
     echo '<br style="clear:both;"/><hr/><br/><pre style="padding-left:160px;font:14px/140% monospace;background:#FFF;"><ol style="list-style-position:inside;">';
     foreach ( get_included_files() as $i => $path ) {
+        $size = filesize( $path );
+        $total_size += $size;
         $color = ' style="color:red;"';
         if ( 0 === strpos( $path, WP_PLUGIN_DIR ) ) {
             $color = ' style="color:blue;"';
@@ -58,8 +61,11 @@ function whats_running() {
         } elseif ( 0 === strpos($path, 'wp-admin' ) ) {
             $color = ' style="color:grey;"';
         }
-        printf( '<li%s>%s</li>', $color, esc_html( $path ) );
+        printf( '<li%s>%s<span style="padding-left:%spx;display:inline-block;background-color:#FF00FF;border-radius:5px;height:5px;margin-left:5px;"></span></li>',
+            $color, esc_html( $path ), round( $size / 512 + 1 ) );
     }
+    printf( '<li style="color:black;font-weight:bold;list-style:none;">Total: %s bytes</li>',
+        number_format( $total_size, 0, '.', ' ' ) );
     echo '</ol></pre>';
 }
 
