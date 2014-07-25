@@ -31,6 +31,8 @@ Please watch [this WP core bug](https://core.trac.wordpress.org/ticket/28364) to
 You can find some documentaion here what makes a WordPress plugin efficient.
 https://github.com/szepeviktor/WPHW
 
+[GitHub](https://github.com/szepeviktor/whats-running)
+
 == Installation ==
 
 This section describes how to install the plugin and get it working.
