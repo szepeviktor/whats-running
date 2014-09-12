@@ -21,9 +21,11 @@ It can be used for plugin or theme refactoring.
 
 = Now you can highlight your own plugin and theme =
 
-Provide a part of its path:
+Provide a part of its path in wp-config.php:
 
 `define( 'WHATS_RUNNING_HIGHLIGHT', 'wp-content/plugins/my-plugin' );`
+
+= Color codes =
 
 * your code is highlighted with YELLOW background
 * plugin files are in BLUE
@@ -33,12 +35,15 @@ Provide a part of its path:
 * all other files are in RED
 * the PINK bar after the filename represents the file size ( 0.5 kB/px )
 
-You can watch [this WP core bug](https://core.trac.wordpress.org/ticket/28364) to get more information about WordPress entry points.
+= Links =
 
-You can find some documentaion here what makes a WordPress plugin efficient.
+You can watch [WP core bug #28364](https://core.trac.wordpress.org/ticket/28364) to get more information
+about [WordPress entry points](https://github.com/szepeviktor/WPHW/blob/master/wp-entry-points.md).
+
+You can find some documentaion here what makes a WordPress plugin efficient:
 https://github.com/szepeviktor/WPHW
 
-[GitHub](https://github.com/szepeviktor/whats-running)
+[GitHub repo](https://github.com/szepeviktor/whats-running)
 
 == Installation ==
 
