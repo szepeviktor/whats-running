@@ -14,19 +14,26 @@ Lists WordPress require() calls mainly for plugin code refactoring
 = Only for development! =
 
 This plugin dumps the colorized filenames and filesizes after the normal WordPress output, after the closing html tag.
-This generates invalid HTML but gives you an overview of plugins and the current theme.
+This generates invalid HTML but gives you an overview of loaded plugins and the current theme.
 
-This plugin lists all files parsed and executed by the PHP engine.
+*What's running* lists all files parsed and executed by the PHP engine.
 It can be used for plugin or theme refactoring.
 
-* files in the plugin directory are BLUE
-* files in the themes directory are ORANGE
-* files in the wp-includes directory are GREEN
-* files in the wp-admin directory are GREY
-* all other files are RED
-* the bar after filename is the file size ( 0.5 kB/px )
+= Now you can highlight your own plugin and theme =
 
-Please watch [this WP core bug](https://core.trac.wordpress.org/ticket/28364) to get more information about WordPress entry points.
+Provide a part of your path:
+
+`define( 'WHATS_RUNNING_HIGHLIGHT', 'wp-content/plugins/my-plugin' );`
+
+* your code is highlighted with YELLOW background
+* plugin files are in BLUE
+* themes files are in ORANGE
+* files in the wp-includes directory are in GREEN
+* files in the wp-admin directory are in GREY
+* all other files are in RED
+* the PINK bar after the filename represents the file size ( 0.5 kB/px )
+
+You can watch [this WP core bug](https://core.trac.wordpress.org/ticket/28364) to get more information about WordPress entry points.
 
 You can find some documentaion here what makes a WordPress plugin efficient.
 https://github.com/szepeviktor/WPHW
@@ -49,9 +56,13 @@ After finishing the refactor, please deactivate and delete this plugin.
 == Screenshots ==
 
 1. This is an old screen shot. You can see the filenames after the admin footer.
-1. This is the current screen shot of the plugin's output on the dashboard. The colored bars represent the file sizes.
+2. This is the current screen shot of the plugin's output on the dashboard. The colored bars represent the file sizes.
 
 == Changelog ==
+
+= 1.8 =
+* Changed wrapper element to div with id "whats-running"
+* Added feature to highlight yout code.
 
 = 1.7 =
 * Added size in kB to the title of the file size lines

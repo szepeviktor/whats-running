@@ -37,36 +37,45 @@ function whats_running() {
         ( @$_SERVER['SCRIPT_FILENAME'] === ABSPATH . 'wp-admin/async-upload.php' ) ) {
         return;
     }
-    // run on IFRAME_REQUEST
+    // do run on IFRAME_REQUEST
 
     $abslen = strlen(ABSPATH);
     $total_size = 0;
+    $highlight = defined( 'WHATS_RUNNING_HIGHLIGHT' ) ? WHATS_RUNNING_HIGHLIGHT : false;
 
-    print '<br style="clear:both;"/><hr/><br/><pre style="padding-left:160px;font:14px/140% monospace;background:#FFF;"><ol style="list-style-position:inside;">';
+    print '<div id="whats-running" style="clear:both;"/><hr/><pre style="padding-left:160px;font:14px/140% monospace;background:#FFF;"><ol style="list-style-position:inside;">';
     foreach ( get_included_files() as $i => $path ) {
         $size = filesize( $path );
         $total_size += $size;
-        $color = ' style="color:red;"';
+        $color = 'red';
+
+        if ( $highlight && false !== strpos( $path, $highlight ) ) {
+            $background = 'background:yellow;';
+        } else {
+            $background = '';
+        }
+
         if ( 0 === strpos( $path, WP_PLUGIN_DIR ) ) {
-            $color = ' style="color:blue;"';
+            $color = 'blue';
         } elseif ( 0 === strpos($path, WP_CONTENT_DIR . '/themes' ) ) {
-            $color = ' style="color:orange;"';
+            $color = 'orange';
         }
         // only after WP_CONTENT_DIR check
         if ( 0 === strpos($path, ABSPATH ) ) {
             $path = substr( $path, $abslen );
         }
         if ( 0 === strpos( $path, WPINC ) ) {
-            $color = ' style="color:green;"';
+            $color = 'green';
         } elseif ( 0 === strpos($path, 'wp-admin' ) ) {
-            $color = ' style="color:grey;"';
+            $color = 'grey';
         }
-        printf( '<li%s>%s<span title="%s kB" style="padding-left:%spx;display:inline-block;background-color:#FF00FF;border-radius:5px;height:5px;margin-left:5px;"></span></li>',
-            $color, esc_html( $path ), number_format( $size / 1024, 0 ), round( $size / 512 + 1 ) );
+
+        printf( '<li style="color:%s%s">%s<span title="%s kB" style="padding-left:%spx;display:inline-block;background-color:#FF00FF;border-radius:5px;height:5px;margin-left:5px;"></span></li>',
+            $color, $background, esc_html( $path ), number_format( $size / 1024, 0 ), round( $size / 512 + 1 ) );
     }
     printf( '<li style="color:black;font-weight:bold;list-style:none;">Total: %s bytes</li>',
         number_format( $total_size, 0, '.', ' ' ) );
-    print '</ol></pre>';
+    print '</ol></pre></div>';
 }
 
 add_action( 'shutdown', 'whats_running' );
