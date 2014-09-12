@@ -57,6 +57,7 @@ After finishing the refactor, please deactivate and delete this plugin.
 
 1. This is an old screen shot. You can see the filenames after the admin footer.
 2. This is the current screen shot of the plugin's output on the dashboard. The colored bars represent the file sizes.
+3. You can see some lines highlighted with the WHATS_RUNNING_HIGHLIGHT define.
 
 == Changelog ==
 
