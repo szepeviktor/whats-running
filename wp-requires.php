@@ -32,9 +32,11 @@ if ( false === defined( 'ABSPATH' ) ) {
 
 function whats_running() {
     // on file uploads (async-upload.php) DOING_AJAX is defined late
-    if ( ( defined('DOING_AJAX') && DOING_AJAX ) ||
-        ( defined('DOING_CRON') && DOING_CRON ) ||
-        ( @$_SERVER['SCRIPT_FILENAME'] === ABSPATH . 'wp-admin/async-upload.php' ) ) {
+    if ( ( defined('DOING_AJAX') && DOING_AJAX )
+        || ( defined('DOING_CRON') && DOING_CRON )
+        || ( @$_SERVER['SCRIPT_FILENAME'] === ABSPATH . 'wp-admin/async-upload.php' )
+        || is_robots()
+    ) {
         return;
     }
     // do run on IFRAME_REQUEST
