@@ -4,7 +4,7 @@ Donate link: https://szepe.net/wp-donate/
 Tags: debug, debugging, developer, development, performance, profiler, profiling
 Requires at least: 3.5
 Tested up to: 3.9.2
-Stable tag: 1.7
+Stable tag: 1.8
 License: GPLv2
 
 Lists WordPress require() calls mainly for plugin code refactoring
@@ -21,7 +21,7 @@ It can be used for plugin or theme refactoring.
 
 = Now you can highlight your own plugin and theme =
 
-Provide a part of your path:
+Provide a part of its path:
 
 `define( 'WHATS_RUNNING_HIGHLIGHT', 'wp-content/plugins/my-plugin' );`
 
@@ -62,7 +62,7 @@ After finishing the refactor, please deactivate and delete this plugin.
 
 = 1.8 =
 * Changed wrapper element to div with id "whats-running"
-* Added feature to highlight yout code.
+* Added feature to highlight your code.
 
 = 1.7 =
 * Added size in kB to the title of the file size lines
