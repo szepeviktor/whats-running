@@ -58,6 +58,12 @@ This section describes how to install the plugin and get it working.
 
 After finishing the refactor, please deactivate and delete this plugin.
 
+= How to highlight my code? =
+
+Insert a line into wp-config.php with a part of your files' path:
+
+`define( 'WHATS_RUNNING_HIGHLIGHT', 'wp-content/plugins/my-plugin' );`
+
 == Screenshots ==
 
 1. This is an old screen shot. You can see the filenames after the admin footer.
