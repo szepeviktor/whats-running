@@ -70,7 +70,7 @@ function whats_running() {
             $color = 'grey';
         }
 
-        printf( '<li style="color:%s%s">%s<span title="%s kB" style="padding-left:%spx;display:inline-block;background-color:#FF00FF;border-radius:5px;height:5px;margin-left:5px;"></span></li>',
+        printf( '<li style="color:%s;%s">%s<span title="%s kB" style="padding-left:%spx;display:inline-block;background-color:#FF00FF;border-radius:5px;height:5px;margin-left:5px;"></span></li>',
             $color, $background, esc_html( $path ), number_format( $size / 1024, 0 ), round( $size / 512 + 1 ) );
     }
     printf( '<li style="color:black;font-weight:bold;list-style:none;">Total: %s bytes</li>',
