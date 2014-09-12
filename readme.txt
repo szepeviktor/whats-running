@@ -1,5 +1,5 @@
 === What's running ===
-Contributors: szepeviktor
+Contributors: szepe.viktor
 Donate link: https://szepe.net/wp-donate/
 Tags: debug, debugging, developer, development, performance, profiler, profiling
 Requires at least: 3.5
