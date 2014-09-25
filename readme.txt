@@ -1,7 +1,7 @@
 === What's running ===
 Contributors: szepe.viktor
 Donate link: https://szepe.net/wp-donate/
-Tags: debug, debugging, developer, development, performance, profiler, profiling
+Tags: debug, debugger, debugging, developer, development, performance, profiler, profiling
 Requires at least: 3.5
 Tested up to: 4.0
 Stable tag: 1.8
@@ -63,6 +63,10 @@ After finishing the refactor, please deactivate and delete this plugin.
 Insert a line into wp-config.php with a part of your files' path:
 
 `define( 'WHATS_RUNNING_HIGHLIGHT', 'wp-content/plugins/my-plugin' );`
+
+= Use in production? =
+
+Please don't!
 
 == Screenshots ==
 
