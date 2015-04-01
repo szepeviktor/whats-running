@@ -70,7 +70,7 @@ Insert a line into wp-config.php with a part of your files' path:
 
 = Use in production? =
 
-Please don't!
+Please do not!
 
 = How to switch between file size and memory consumption? =
 

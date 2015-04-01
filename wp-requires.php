@@ -9,10 +9,14 @@ Author URI: http://www.online1.hu/webdesign/
 License: GNU General Public License (GPL) version 2
 */
 
-if ( false === defined( 'ABSPATH' ) ) {
-    die();
+if ( ! function_exists( 'add_filter' ) ) {
+    error_log( 'Malicious sign detected: wpf2b_direct_access '
+        . addslashes( $_SERVER['REQUEST_URI'] ) );
+    ob_get_level() && ob_end_clean();
+    header( 'Status: 403 Forbidden' );
+    header( 'HTTP/1.0 403 Forbidden' );
+    exit();
 }
-
 
 function whats_running() {
     // DOING_AJAX is defined late on file uploads (async-upload.php).
@@ -37,7 +41,8 @@ function whats_running() {
     }
 
     print '<div id="whats-running" style="clear:both;"/><hr/>
-        <pre style="padding-left:160px;font:14px/140% monospace;background:#FFF;"><ol style="list-style-position:inside;">';
+        <pre style="padding-left:160px;font:14px/140% monospace;background:#FFF;">
+        <ol style="list-style-position:inside;">';
 
     foreach ( get_included_files() as $i => $path ) {
         if ( $sizes
@@ -68,7 +73,7 @@ function whats_running() {
             $color = 'orange';
         }
         // Truncate path only after WP_CONTENT_DIR check.
-        if ( 0 === strpos($path, ABSPATH ) ) {
+        if ( 0 === strpos( $path, ABSPATH ) ) {
             $path = substr( $path, $abslen );
         }
         if ( 0 === strpos( $path, WPINC ) ) {
