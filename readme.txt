@@ -3,11 +3,11 @@ Contributors: szepe.viktor
 Donate link: https://szepe.net/wp-donate/
 Tags: debug, debugger, debugging, developer, development, performance, profiler, profiling
 Requires at least: 3.5
-Tested up to: 4.0
+Tested up to: 4.1.1
 Stable tag: 1.9
 License: GPLv2
 
-Lists WordPress require() calls mainly for plugin code refactoring
+Lists WordPress require() calls mainly for plugin code refactoring.
 
 == Description ==
 
@@ -15,7 +15,7 @@ Lists WordPress require() calls mainly for plugin code refactoring
 
 = Now with OPcache memory consumption support =
 
-This plugin dumps the colorized filenames and memory consumptions or filesizes after the normal WordPress HTML output,
+This plugin dumps the colorized filenames and memory consumptions or file sizes after the normal WordPress HTML output,
 after the closing html tag.
 This generates invalid HTML but gives you an overview of loaded plugins and the current theme.
 
@@ -72,16 +72,16 @@ Insert a line into wp-config.php with a part of your files' path:
 
 Please don't!
 
-= How to switch between filesize and memory consumption? =
+= How to switch between file size and memory consumption? =
 
 When OPcache status is available memory consumption is displayed,
-otherwise the filesize.
+otherwise the file size.
 
 == Screenshots ==
 
-1. This is an old screen shot. You can see the filenames after the admin footer.
-2. This is the current screen shot of the plugin's output on the dashboard. The colored bars represent the file sizes.
-3. You can see some lines highlighted with the WHATS_RUNNING_HIGHLIGHT define.
+1. This is an old screenshot. You can see the filenames after the admin footer.
+2. This is the current screenshot of the plugin's output on the Dashboard. The colored bars represent the file sizes.
+3. Lines highlighted by the WHATS_RUNNING_HIGHLIGHT constant.
 
 == Changelog ==
 
@@ -93,28 +93,28 @@ otherwise the filesize.
 * NEW: Added feature to highlight your code.
 
 = 1.7 =
-* Added size in kB to the title of the file size lines.
+* NEW: Added size in kB to the title of the file size bars.
 
 = 1.6 =
-* Added file sizes and total file size.
+* NEW Added file sizes and total file size.
 
 = 1.5 =
-* Added inline styles.
+* NEW: Added inline styles.
 * Link to WP core bug to watch.
 
 = 1.4 =
-* FIX: don't run on non-AJAX media uploads (async-upload.php).
-* tested up to WordPress 3.9.
+* FIX: Prevent running on non-AJAX media uploads (async-upload.php).
+* Tested up to WordPress 3.9.
 
 = 1.3 =
-* FIX: on file uploads (async-upload.php) DOING_AJAX is defined late.
+* FIX: On file uploads (async-upload.php) DOING_AJAX is defined late.
 
 = 1.2 =
-* NEW: legend for the colors.
-* now you don't have to collapse the admin menu.
+* NEW: Legend for the colors.
+* Now you don't have to collapse the admin menu.
 
 = 1.1 =
-* Plugin name correction in readme.
+* FIX: Plugin name correction in readme.
 
 = 1.0 =
 * Initial release.

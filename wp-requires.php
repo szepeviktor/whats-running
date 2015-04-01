@@ -3,7 +3,7 @@
 Plugin Name: What's running
 Version: 1.9
 Description: Lists WordPress require() calls mainly for plugin code refactoring.
-Plugin URI: http://wordpress.org/plugins/whats-running/
+Plugin URI: https://wordpress.org/plugins/whats-running/
 Author: Viktor Szépe
 Author URI: http://www.online1.hu/webdesign/
 License: GNU General Public License (GPL) version 2
