@@ -1,28 +1,12 @@
 <?php
-/**
- * Plugin Name: What's running
- * Plugin URI: http://wordpress.org/plugins/whats-running/
- * Description: Lists WordPress require() calls mainly for plugin code refactoring
- * Version: 1.8
- * Author: Viktor Szépe
- * Author URI: http://www.online1.hu/webdesign/
- * License: GNU General Public License (GPL) version 2
- */
-
-/*  Copyright 2014  Viktor Szépe  (email: viktor@szepe.net)
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as
-    published by the Free Software Foundation.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+/*
+Plugin Name: What's running
+Version: 1.9
+Description: Lists WordPress require() calls mainly for plugin code refactoring.
+Plugin URI: http://wordpress.org/plugins/whats-running/
+Author: Viktor Szépe
+Author URI: http://www.online1.hu/webdesign/
+License: GNU General Public License (GPL) version 2
 */
 
 if ( false === defined( 'ABSPATH' ) ) {
@@ -31,7 +15,7 @@ if ( false === defined( 'ABSPATH' ) ) {
 
 
 function whats_running() {
-    // on file uploads (async-upload.php) DOING_AJAX is defined late
+    // DOING_AJAX is defined late on file uploads (async-upload.php).
     if ( ( defined('DOING_AJAX') && DOING_AJAX )
         || ( defined('DOING_CRON') && DOING_CRON )
         || ( @$_SERVER['SCRIPT_FILENAME'] === ABSPATH . 'wp-admin/async-upload.php' )
@@ -39,15 +23,36 @@ function whats_running() {
     ) {
         return;
     }
-    // do run on IFRAME_REQUEST
 
-    $abslen = strlen(ABSPATH);
+    // Do run on IFRAME_REQUEST-s.
+
+    $abslen = strlen( ABSPATH );
     $total_size = 0;
     $highlight = defined( 'WHATS_RUNNING_HIGHLIGHT' ) ? WHATS_RUNNING_HIGHLIGHT : false;
 
-    print '<div id="whats-running" style="clear:both;"/><hr/><pre style="padding-left:160px;font:14px/140% monospace;background:#FFF;"><ol style="list-style-position:inside;">';
+    if ( function_exists( 'opcache_get_status' ) ) {
+        $sizes = opcache_get_status( true );
+    } else {
+        $sizes = null;
+    }
+
+    print '<div id="whats-running" style="clear:both;"/><hr/>
+        <pre style="padding-left:160px;font:14px/140% monospace;background:#FFF;"><ol style="list-style-position:inside;">';
+
     foreach ( get_included_files() as $i => $path ) {
-        $size = filesize( $path );
+        if ( $sizes
+            && isset( $sizes['scripts'][ $path ] )
+            && isset( $sizes['scripts'][ $path ]['memory_consumption'] )
+        ) {
+            $size = $sizes['scripts'][ $path ]['memory_consumption'];
+            $size_pixel_factor = 1024;
+            $size_bar_color = '#880088';
+        } else {
+            $size = filesize( $path );
+            $size_pixel_factor = 512;
+            $size_bar_color = '#FF00FF';
+        }
+
         $total_size += $size;
         $color = 'red';
 
@@ -59,10 +64,10 @@ function whats_running() {
 
         if ( 0 === strpos( $path, WP_PLUGIN_DIR ) ) {
             $color = 'blue';
-        } elseif ( 0 === strpos($path, WP_CONTENT_DIR . '/themes' ) ) {
+        } elseif ( 0 === strpos( $path, WP_CONTENT_DIR . '/themes' ) ) {
             $color = 'orange';
         }
-        // only after WP_CONTENT_DIR check
+        // Truncate path only after WP_CONTENT_DIR check.
         if ( 0 === strpos($path, ABSPATH ) ) {
             $path = substr( $path, $abslen );
         }
@@ -72,9 +77,17 @@ function whats_running() {
             $color = 'grey';
         }
 
-        printf( '<li style="color:%s;%s">%s<span title="%s kB" style="padding-left:%spx;display:inline-block;background-color:#FF00FF;border-radius:5px;height:5px;margin-left:5px;"></span></li>',
-            $color, $background, esc_html( $path ), number_format( $size / 1024, 0 ), round( $size / 512 + 1 ) );
+        printf( '<li style="color:%s;%s">%s<span title="%s kB" style="padding-left:%spx;display:inline-block;
+            background-color:%s;border-radius:5px;height:5px;margin-left:5px;"></span></li>',
+            $color,
+            $background,
+            esc_html( $path ),
+            number_format( $size / 1024, 0 ),
+            round( $size / $size_pixel_factor + 1 ),
+            $size_bar_color
+        );
     }
+    // Total
     printf( '<li style="color:black;font-weight:bold;list-style:none;">Total: %s bytes</li>',
         number_format( $total_size, 0, '.', ' ' ) );
     print '</ol></pre></div>';

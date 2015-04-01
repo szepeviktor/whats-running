@@ -4,7 +4,7 @@ Donate link: https://szepe.net/wp-donate/
 Tags: debug, debugger, debugging, developer, development, performance, profiler, profiling
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 1.8
+Stable tag: 1.9
 License: GPLv2
 
 Lists WordPress require() calls mainly for plugin code refactoring
@@ -13,7 +13,10 @@ Lists WordPress require() calls mainly for plugin code refactoring
 
 = Only for development! =
 
-This plugin dumps the colorized filenames and filesizes after the normal WordPress output, after the closing html tag.
+= Now with OPcache memory consumption support =
+
+This plugin dumps the colorized filenames and memory consumptions or filesizes after the normal WordPress HTML output,
+after the closing html tag.
 This generates invalid HTML but gives you an overview of loaded plugins and the current theme.
 
 *What's running* lists all files parsed and executed by the PHP engine.
@@ -33,7 +36,8 @@ Provide a part of its path in wp-config.php:
 * files in the wp-includes directory are in GREEN
 * files in the wp-admin directory are in GREY
 * all other files are in RED
-* the PINK bar after the filename represents the file size ( 0.5 kB/px )
+* VIOLET bar after the filename represents the file size ( 0.5 kB/px )
+* DARK MAGENTA bar after the filename represents the OPcache memory consumption ( 1 kB/px )
 
 = Links =
 
@@ -43,7 +47,7 @@ about [WordPress entry points](https://github.com/szepeviktor/WPHW/blob/master/w
 You can find some documentaion here what makes a WordPress plugin efficient:
 https://github.com/szepeviktor/WPHW
 
-[GitHub repo](https://github.com/szepeviktor/whats-running)
+Development of this plugin goes on on [GitHub](https://github.com/szepeviktor/whats-running).
 
 == Installation ==
 
@@ -68,6 +72,11 @@ Insert a line into wp-config.php with a part of your files' path:
 
 Please don't!
 
+= How to switch between filesize and memory consumption? =
+
+When OPcache status is available memory consumption is displayed,
+otherwise the filesize.
+
 == Screenshots ==
 
 1. This is an old screen shot. You can see the filenames after the admin footer.
@@ -76,35 +85,37 @@ Please don't!
 
 == Changelog ==
 
+= 1.9 =
+* NEW: Added OPcache memory consumption support (DARK MAGENTA bar).
+
 = 1.8 =
-* Changed wrapper element to div with id "whats-running"
-* Added feature to highlight your code.
+* Changed wrapper element to div with id "whats-running".
+* NEW: Added feature to highlight your code.
 
 = 1.7 =
-* Added size in kB to the title of the file size lines
+* Added size in kB to the title of the file size lines.
 
 = 1.6 =
-* Added file sizes and total file size
+* Added file sizes and total file size.
 
 = 1.5 =
-* Added inline styles
-* Link to WP core bug to watch
+* Added inline styles.
+* Link to WP core bug to watch.
 
 = 1.4 =
-* FIX: don't run on non-AJAX media uploads (async-upload.php)
-* tested up to WordPress 3.9
+* FIX: don't run on non-AJAX media uploads (async-upload.php).
+* tested up to WordPress 3.9.
 
 = 1.3 =
-* FIX: on file uploads (async-upload.php) DOING_AJAX is defined late
+* FIX: on file uploads (async-upload.php) DOING_AJAX is defined late.
 
 = 1.2 =
-* NEW: legend for the colors
-* now you don't have to collapse the admin menu
+* NEW: legend for the colors.
+* now you don't have to collapse the admin menu.
 
 = 1.1 =
-* plugin name correction in the readme
+* Plugin name correction in readme.
 
 = 1.0 =
-* Initial release
-* Colorized output
-
+* Initial release.
+* Colorized output.
