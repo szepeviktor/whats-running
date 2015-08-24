@@ -3,8 +3,8 @@ Contributors: szepe.viktor
 Donate link: https://szepe.net/wp-donate/
 Tags: debug, debugger, debugging, developer, development, performance, profiler, profiling
 Requires at least: 3.5
-Tested up to: 4.1.1
-Stable tag: 1.9
+Tested up to: 4.3
+Stable tag: 1.9.1
 License: GPLv2
 
 Lists WordPress require() calls mainly for plugin code refactoring.
@@ -84,6 +84,10 @@ otherwise the file size.
 3. Lines highlighted by the WHATS_RUNNING_HIGHLIGHT constant.
 
 == Changelog ==
+
+= 1.9.1 =
+* FIX: Always display pre tag
+* NEW: Semver
 
 = 1.9 =
 * NEW: Added OPcache memory consumption support (DARK MAGENTA bar).

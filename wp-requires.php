@@ -1,24 +1,30 @@
 <?php
 /*
 Plugin Name: What's running
-Version: 1.9
+Version: 1.9.1
 Description: Lists WordPress require() calls mainly for plugin code refactoring.
 Plugin URI: https://wordpress.org/plugins/whats-running/
 Author: Viktor Szépe
-Author URI: http://www.online1.hu/webdesign/
 License: GNU General Public License (GPL) version 2
 */
 
 if ( ! function_exists( 'add_filter' ) ) {
-    error_log( 'Malicious traffic detected: whats_running_direct_access '
-        . addslashes( $_SERVER['REQUEST_URI'] ) );
+    error_log( 'Break-in attempt detected: whats_running_direct_access '
+        . addslashes( @$_SERVER['REQUEST_URI'] )
+    );
     ob_get_level() && ob_end_clean();
-    header( 'Status: 403 Forbidden' );
-    header( 'HTTP/1.0 403 Forbidden' );
-    exit();
+    if ( ! headers_sent() ) {
+        header( 'Status: 403 Forbidden' );
+        header( 'HTTP/1.1 403 Forbidden', true, 403 );
+        header( 'Connection: Close' );
+    }
+    exit;
 }
 
+add_action( 'shutdown', 'whats_running' );
+
 function whats_running() {
+
     // DOING_AJAX is defined late on file uploads (async-upload.php).
     if ( ( defined('DOING_AJAX') && DOING_AJAX )
         || ( defined('DOING_CRON') && DOING_CRON )
@@ -41,7 +47,7 @@ function whats_running() {
     }
 
     print '<div id="whats-running" style="clear:both;"/><hr/>
-        <pre style="padding-left:160px;font:14px/140% monospace;background:#FFF;">
+        <pre style="display:block !important;padding-left:160px;font:14px/140% monospace;background:#FFF;">
         <ol style="list-style-position:inside;">';
 
     foreach ( get_included_files() as $i => $path ) {
@@ -92,10 +98,9 @@ function whats_running() {
             $size_bar_color
         );
     }
+
     // Total
     printf( '<li style="color:black;font-weight:bold;list-style:none;">Total: %s bytes</li>',
         number_format( $total_size, 0, '.', ' ' ) );
     print '</ol></pre></div>';
 }
-
-add_action( 'shutdown', 'whats_running' );
