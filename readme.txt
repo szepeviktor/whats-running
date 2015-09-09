@@ -88,12 +88,14 @@ otherwise the file size.
 = 1.9.1 =
 * FIX: Always display pre tag
 * NEW: Semver
+* Tested up to WordPress 4.3
+* FIX: Updated fail2ban trigger
 
 = 1.9 =
 * NEW: Added OPcache memory consumption support (DARK MAGENTA bar).
 
 = 1.8 =
-* Changed wrapper element to div with id "whats-running".
+* FIX: Changed wrapper element to div with id "whats-running".
 * NEW: Added feature to highlight your code.
 
 = 1.7 =
