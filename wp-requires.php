@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: What's running
-Version: 1.9.1
+Version: 1.9.2
 Description: Lists WordPress require() calls mainly for plugin code refactoring.
 Plugin URI: https://wordpress.org/plugins/whats-running/
 Author: Viktor Szépe
@@ -9,8 +9,8 @@ License: GNU General Public License (GPL) version 2
 */
 
 if ( ! function_exists( 'add_filter' ) ) {
-    error_log( 'Break-in attempt detected: whats_running_direct_access '
-        . addslashes( @$_SERVER['REQUEST_URI'] )
+    error_log( 'Break-in attempt detected: wpf2b_mu_direct_access '
+        . addslashes( isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '' )
     );
     ob_get_level() && ob_end_clean();
     if ( ! headers_sent() ) {
@@ -26,9 +26,9 @@ add_action( 'shutdown', 'whats_running' );
 function whats_running() {
 
     // DOING_AJAX is defined late on file uploads (async-upload.php).
-    if ( ( defined('DOING_AJAX') && DOING_AJAX )
-        || ( defined('DOING_CRON') && DOING_CRON )
-        || ( @$_SERVER['SCRIPT_FILENAME'] === ABSPATH . 'wp-admin/async-upload.php' )
+    if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX )
+        || ( defined( 'DOING_CRON' ) && DOING_CRON )
+        || ( ABSPATH . 'wp-admin/async-upload.php' === $_SERVER['SCRIPT_FILENAME'] )
         || is_robots()
     ) {
         return;
@@ -84,7 +84,7 @@ function whats_running() {
         }
         if ( 0 === strpos( $path, WPINC ) ) {
             $color = 'green';
-        } elseif ( 0 === strpos($path, 'wp-admin' ) ) {
+        } elseif ( 0 === strpos( $path, 'wp-admin' ) ) {
             $color = 'grey';
         }
 
@@ -101,6 +101,7 @@ function whats_running() {
 
     // Total
     printf( '<li style="color:black;font-weight:bold;list-style:none;">Total: %s bytes</li>',
-        number_format( $total_size, 0, '.', ' ' ) );
+        number_format( $total_size, 0, '.', ' ' )
+    );
     print '</ol></pre></div>';
 }

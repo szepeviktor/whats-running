@@ -3,8 +3,8 @@ Contributors: szepe.viktor
 Donate link: https://szepe.net/wp-donate/
 Tags: debug, debugger, debugging, developer, development, performance, profiler, profiling
 Requires at least: 3.5
-Tested up to: 4.3
-Stable tag: 1.9.1
+Tested up to: 4.4.2
+Stable tag: 1.9.2
 License: GPLv2
 
 Lists WordPress require() calls mainly for plugin code refactoring.
@@ -13,7 +13,7 @@ Lists WordPress require() calls mainly for plugin code refactoring.
 
 = Only for development! =
 
-= Now with OPcache memory consumption support =
+= With OPcache memory consumption support =
 
 This plugin dumps the colorized filenames and memory consumptions or file sizes after the normal WordPress HTML output,
 after the closing html tag.
@@ -22,7 +22,7 @@ This generates invalid HTML but gives you an overview of loaded plugins and the 
 *What's running* lists all files parsed and executed by the PHP engine.
 It can be used for plugin or theme refactoring.
 
-= Now you can highlight your own plugin and theme =
+= You can highlight your own plugin or theme =
 
 Provide a part of its path in wp-config.php:
 
@@ -84,6 +84,11 @@ otherwise the file size.
 3. Lines highlighted by the WHATS_RUNNING_HIGHLIGHT constant.
 
 == Changelog ==
+
+= 1.9.2 =
+* WP compatibility
+* WPCS fixes
+* No code change
 
 = 1.9.1 =
 * FIX: Always display pre tag
