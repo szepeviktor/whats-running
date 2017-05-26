@@ -6,6 +6,7 @@ Description: Lists WordPress require() calls mainly for plugin code refactoring.
 Plugin URI: https://wordpress.org/plugins/whats-running/
 Author: Viktor Szépe
 License: GNU General Public License (GPL) version 2
+Constants: WHATS_RUNNING_HIGHLIGHT
 */
 
 if ( ! function_exists( 'add_filter' ) ) {
@@ -30,6 +31,7 @@ function whats_running() {
         || ( defined( 'DOING_CRON' ) && DOING_CRON )
         || ( ABSPATH . 'wp-admin/async-upload.php' === $_SERVER['SCRIPT_FILENAME'] )
         || is_robots()
+        || ( 'cli' === php_sapi_name() )
     ) {
         return;
     }
@@ -37,6 +39,7 @@ function whats_running() {
     // Do run on IFRAME_REQUEST-s.
 
     $abslen = strlen( ABSPATH );
+    $contentlen = strlen( WP_CONTENT_DIR );
     $total_size = 0;
     $highlight = defined( 'WHATS_RUNNING_HIGHLIGHT' ) ? WHATS_RUNNING_HIGHLIGHT : false;
 
@@ -68,7 +71,7 @@ function whats_running() {
         $color = 'red';
 
         if ( $highlight && false !== strpos( $path, $highlight ) ) {
-            $background = 'background:yellow;';
+            $background = 'background:#060601;';
         } else {
             $background = '';
         }
@@ -78,10 +81,14 @@ function whats_running() {
         } elseif ( 0 === strpos( $path, WP_CONTENT_DIR . '/themes' ) ) {
             $color = 'orange';
         }
+
         // Truncate path only after WP_CONTENT_DIR check.
         if ( 0 === strpos( $path, ABSPATH ) ) {
             $path = substr( $path, $abslen );
+        } elseif ( 0 === strpos( $path, WP_CONTENT_DIR ) ) {
+            $path = 'wp-content' . substr( $path, $contentlen );
         }
+
         if ( 0 === strpos( $path, WPINC ) ) {
             $color = 'green';
         } elseif ( 0 === strpos( $path, 'wp-admin' ) ) {
